@@ -1,5 +1,6 @@
 import 'package:attend_app/jadwal.dart';
 import 'package:attend_app/setelan.dart';
+import 'package:attend_app/presensiPage.dart';
 import 'package:flutter/material.dart';
 
 class dashboard extends StatefulWidget {
@@ -23,11 +24,7 @@ class _dashboard extends State<dashboard> {
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
-        children: [
-          Center(child: Text('halaman dashboard utama')),
-          jadwal(),
-          setelan(),
-        ],
+        children: [dashboardPage(), jadwal(), setelan()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -53,7 +50,45 @@ class dashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const headerProfil(
+            nama: "Rossy Rahmadani",
+            jabatan: "Guru Rekayasa Perangkat Lunak",
+            tanggal: "SENIN, 28 OKTOBER",
+            fotourl: "",
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                card(
+                  kelas: "XI RPL 2",
+                  jamPel: "7:15 - 8:45",
+                  status: "(Sedang Berlangsung)",
+                  isActive: true,
+                ),
+                const SizedBox(height: 20),
+                card(
+                  kelas: "XI DKV 2",
+                  jamPel: "9:15 - 10:45",
+                  status: "(Menunggu)",
+                  isActive: false,
+                ),
+                const SizedBox(height: 20),
+                card(
+                  kelas: "XI TKJ 2",
+                  jamPel: "11:15 - 12:45",
+                  status: "(Menunggu)",
+                  isActive: false,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -88,7 +123,7 @@ class headerProfil extends StatelessWidget {
                 backgroundColor: Colors.grey,
                 child: const Icon(Icons.person, size: 40, color: Colors.white),
               ),
-              SizedBox(width: 5),
+              SizedBox(width: 20),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,6 +172,7 @@ class card extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
@@ -149,44 +185,49 @@ class card extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Text(kelas, style: TextStyle(fontWeight: FontWeight.bold)),
                 Text(
-                  kelas,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  status,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: isActive == true ? Colors.green : Colors.red,
+                  ),
                 ),
-                Text(
-                  status
-                )
               ],
             ),
-            Text(
-              'Jam Pelajaran'
-            ),
-            Text(
-              jamPel
-            ),
+            Text('Jam Pelajaran'),
+            Text(jamPel),
             SizedBox(height: 5),
-            if(isActive == true)
+            if (isActive == true)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-
-                  }, 
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const presensi(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.yellow[700],
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    )
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   ),
                   child: const Text(
                     'Mulai Presensi',
                     style: TextStyle(color: Colors.white),
-                  )
+                  ),
                 ),
-              )
+              ),
           ],
         ),
       ),
