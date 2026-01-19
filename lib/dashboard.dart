@@ -211,9 +211,7 @@ class card extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const presensi(),
-                      ),
+                      MaterialPageRoute(builder: (context) => const presensi()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -234,3 +232,6 @@ class card extends StatelessWidget {
     );
   }
 }
+
+
+
