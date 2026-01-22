@@ -48,24 +48,27 @@ class _presensi extends State<presensi> {
           ),
         ),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Progres Presensi'),
-              SizedBox(height: 5),
-              LinearProgressIndicator(
-                value: 0.7,
-                backgroundColor: Colors.grey,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                minHeight: 10,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              SizedBox(height: 20),
-              card(selectedStatus: true),
-            ],
+      body: 
+        Container(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30, right: 15, left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Progres Presensi'),
+                SizedBox(height: 5),
+                LinearProgressIndicator(
+                  value: 0.7,
+                  backgroundColor: Colors.grey,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  minHeight: 10,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                SizedBox(height: 40),
+                card(selectedStatus: true),
+                SizedBox(height: 15),
+                card(selectedStatus: true),
+              ],
           ),
         ),
       ),
@@ -116,10 +119,18 @@ class card extends StatelessWidget {
                     color: Colors.black.withValues(alpha: 0.25),
                   ),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 7),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [_button("H")],
+                  children: [
+                    _button("H"),
+                    SizedBox(width: 10),
+                    _button("S"),
+                    SizedBox(width: 10),
+                    _button("I"),
+                    SizedBox(width: 10),
+                    _button("A"),
+                  ],
                 ),
               ],
             ),
@@ -142,8 +153,9 @@ class card extends StatelessWidget {
           color: Colors.transparent,
         ),
         child: Center(
-          child: Text(
-            "H",
+          child: 
+          Text(
+            label,
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
