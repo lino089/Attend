@@ -96,6 +96,9 @@ class _presensi extends State<presensi> {
                     itemCount: docs.length,
                     itemBuilder: (context, index) {
                       var data = docs[index].data() as Map<String, dynamic>;
+                      if (data['status'] == 'H') {
+                        return const SizedBox.shrink();
+                      }
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12.0),
                         child: card(
@@ -115,7 +118,7 @@ class _presensi extends State<presensi> {
           ),
 
           bottomNavigationBar: Container(
-            height: 160,
+            height: 180,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -159,22 +162,22 @@ class _presensi extends State<presensi> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: (){
-
-                    }, 
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFBA68C8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(12),
+                      ),
                     ),
                     child: Text(
                       "Kirim Presensi ($sudahAbsen)",
                       style: const TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
                       ),
-                    )
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -185,21 +188,26 @@ class _presensi extends State<presensi> {
 }
 
 Widget boxRekap(String jumlah, String label, Color warna) {
-  return Container(
-    width: 75,
-    padding: const EdgeInsets.symmetric(vertical: 8),
-    decoration: BoxDecoration(
-      color: warna,
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Column(
-      children: [
-        Text(
-          jumlah,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
-        ),
-        Text(label, style: const TextStyle(fontSize: 10)),
-      ],
+  return Expanded(
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      decoration: BoxDecoration(
+        color: warna,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          Text(
+            jumlah,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
     ),
   );
 }
@@ -323,7 +331,9 @@ class card extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        updateStatusSiswa(nis, label);
+        String statusBaru = (currentStatus == label) ? '' : label;
+
+        updateStatusSiswa(nis, statusBaru);
       },
       customBorder: const CircleBorder(),
       child: Container(
