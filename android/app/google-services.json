@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "38556368036",
+    "project_id": "attend-e30da",
+    "storage_bucket": "attend-e30da.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38556368036:android:fc6adbdd362374aaa07a31",
+        "android_client_info": {
+          "package_name": "com.example.attend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMutynddfyIgrn0vdmLbkxYhsXZXyN6Ck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
