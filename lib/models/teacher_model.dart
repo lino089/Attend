@@ -6,6 +6,6 @@ class TeacherModel {
   TeacherModel({
     required this.name,
     required this.role,
-    required this.profileImageUrl,
+    required this.profileImageUrl
   });
 }

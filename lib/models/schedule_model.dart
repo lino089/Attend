@@ -1,19 +1,19 @@
 class ScheduleModel {
   final String className;
-  final String subject;
   final String startTime;
-  final String endTime;
+  final String subject;
   final String location;
-  final bool isOngoing;
+  final String endTime;
+  final bool isOnGoing;
   final int colorCode;
 
   ScheduleModel({
-    this.subject = '',
-    this.location = '',
-    this.colorCode = 0xFF5169F6,
     required this.className,
+    this.subject = '',
     required this.startTime,
     required this.endTime,
-    this.isOngoing = false,
+    this.location = '',
+    this.isOnGoing = false,
+    this.colorCode = 0xFF4A65E5,
   });
 }

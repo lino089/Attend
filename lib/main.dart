@@ -1,5 +1,6 @@
+import 'package:attend/teacher/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'screens/main_screen.dart';
+
 
 void main() {
   runApp(const PresensiApp());
@@ -14,7 +15,7 @@ class PresensiApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Aplikasi Presensi',
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF6F6FE), 
+        scaffoldBackgroundColor: const Color(0xFFF7F8FA), 
         fontFamily: 'Roboto', 
       ),
       home: const MainScreen(),
