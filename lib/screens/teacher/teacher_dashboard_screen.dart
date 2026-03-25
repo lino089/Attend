@@ -1,5 +1,6 @@
 import 'package:attend/data/dummy_data.dart';
 import 'package:attend/models/schedule_model.dart';
+import 'package:attend/screens/teacher/teacher_attendance_screen.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -274,7 +275,15 @@ class OngoingClassCard extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AttendanceScreen(
+                    className: schedule.className,
+                    subjectName: schedule.subject,
+                  )),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4561E9),
                 padding: const EdgeInsets.symmetric(vertical: 16),

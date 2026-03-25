@@ -1,33 +1,32 @@
-import 'package:attend/teacher/dashboard_screen.dart';
-import 'package:attend/teacher/schedule_screen.dart';
+import 'package:attend/screens/admin/admin_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class AdminMainScreen extends StatefulWidget {
+  const AdminMainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreen();
+  State<AdminMainScreen> createState() => _AdminMainScreen();
 }
 
-class _MainScreen extends State<MainScreen> {
-  int selectedIndex = 0;
+class _AdminMainScreen extends State<AdminMainScreen> {
+  int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const DashboardScreen(),
-    const ScheduleScreen(),
-    const Center(child: Text("Halaman Pengaturan")),
+    const AdminDashboardScreen(),
+    const Center(child: Text('Halaman Pengaturan Admin')),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
-      selectedIndex = index;
+      _selectedIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[selectedIndex],
+      backgroundColor: const Color(0xFFF7F8FA),
+      body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -43,11 +42,11 @@ class _MainScreen extends State<MainScreen> {
         child: ClipRRect(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
           child: BottomNavigationBar(
-            currentIndex: selectedIndex,
+            currentIndex: _selectedIndex,
             onTap: _onItemTapped,
             backgroundColor: Colors.white,
-            selectedItemColor: const Color(0xFF4A65E5),
-            unselectedItemColor: const Color(0xFF9CA3AF),
+            selectedItemColor: const Color(0xff4a65e5),
+            unselectedItemColor: const Color(0xff9ca3af),
             selectedLabelStyle: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 11,
@@ -60,15 +59,11 @@ class _MainScreen extends State<MainScreen> {
             elevation: 0,
             items: [
               BottomNavigationBarItem(
-                icon: _buildNavIcon(Icons.grid_view_rounded, 0),
+                icon: _buildNavIcon(Icons.dashboard_rounded, 0),
                 label: 'Dashboard',
               ),
               BottomNavigationBarItem(
-                icon: _buildNavIcon(Icons.calendar_today, 1),
-                label: "Jadwal"
-              ),
-              BottomNavigationBarItem(
-                icon: _buildNavIcon(Icons.settings_outlined, 2),
+                icon: _buildNavIcon(Icons.settings_outlined, 1),
                 label: 'Pengaturan'
               )
             ],
@@ -79,15 +74,19 @@ class _MainScreen extends State<MainScreen> {
   }
 
   Widget _buildNavIcon(IconData icon, int index) {
-    bool isActivate = selectedIndex == index;
+    bool isActive = _selectedIndex == index;
     return Container(
       padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.only(bottom: 4, top: 5),
-      decoration:  BoxDecoration(
-        color:  isActivate ? const Color(0xFFED1FF) : Colors.transparent,
-        borderRadius: BorderRadius.circular(12)
+      margin: const EdgeInsets.only(bottom: 4, top: 8),
+      decoration: BoxDecoration(
+        color: isActive ? const Color(0xffedf1ff) : Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
       ),
-      child: Icon(icon, size: 22, color: isActivate ? const Color(0xFF4A65E5) : const Color(0xFF9CA3AF)),
+      child: Icon(
+        icon,
+        size: 22,
+        color: isActive ? const Color(0xff4a65e5) : const Color(0xff9ca3af),
+      ),
     );
   }
 }
