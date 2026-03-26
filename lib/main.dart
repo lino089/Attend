@@ -1,4 +1,5 @@
 import 'package:attend/screens/admin/admin_main_screen.dart';
+import 'package:attend/screens/auth/login_screen.dart';
 import 'package:attend/screens/teacher/teacher_main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class PresensiApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF7F8FA), 
         fontFamily: 'Roboto', 
       ),
-      home: const AdminMainScreen(),
+      home: const LoginScreen(),
     );
   }
 }

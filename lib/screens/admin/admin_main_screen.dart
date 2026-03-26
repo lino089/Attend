@@ -1,4 +1,5 @@
 import 'package:attend/screens/admin/admin_dashboard_screen.dart';
+import 'package:attend/screens/admin/admin_settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminMainScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _AdminMainScreen extends State<AdminMainScreen> {
 
   final List<Widget> _pages = [
     const AdminDashboardScreen(),
-    const Center(child: Text('Halaman Pengaturan Admin')),
+    const AdminSettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
