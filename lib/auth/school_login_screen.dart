@@ -1,3 +1,4 @@
+import 'package:attend/admin/admin_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -225,9 +226,16 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
                             width: double.infinity,
                             height: 56,
                             child: ElevatedButton(
-                              onPressed: _isLoading || _isGoogleLoading
+                              onPressed: /*_isLoading || _isGoogleLoading
                                   ? null
-                                  : _login,
+                                  : _login*/ () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AdminMainScreen(),
+                                  ),
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryBlue,
                                 foregroundColor: Colors.white,
