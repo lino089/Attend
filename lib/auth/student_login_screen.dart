@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SchoolLoginScreen extends StatefulWidget {
-  const SchoolLoginScreen({super.key});
+class StudentLoginScreen extends StatefulWidget {
+  const StudentLoginScreen({super.key});
 
   @override
-  State<SchoolLoginScreen> createState() => _SchoolLoginScreen();
+  State<StudentLoginScreen> createState() => _StudentLoginScreen();
 }
 
-class _SchoolLoginScreen extends State<SchoolLoginScreen> {
+class _StudentLoginScreen extends State<StudentLoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _npsnController = TextEditingController();
@@ -93,7 +93,7 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
         child: Stack(
           children: [
             Container(
-              height: 300,
+              height: 320,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: primaryBlue,
@@ -106,7 +106,23 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
             SafeArea(
               child: Column(
                 children: [
-                  const SizedBox(height: 50),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 8.0,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                  ),
                   Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -153,7 +169,7 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'School Admin Portal',
+                            'Student Login',
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -335,30 +351,6 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 32),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Don't have an account ",
-                        style: TextStyle(color: textGreyLabel, fontSize: 14),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          'Sign up',
-                          style: TextStyle(
-                            color: primaryBlue,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 48),
                 ],
               ),
             ),
@@ -403,7 +395,7 @@ class CustomInputField extends StatelessWidget {
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,
-              color: _SchoolLoginScreen.textGreyLabel,
+              color: _StudentLoginScreen.textGreyLabel,
               letterSpacing: 0.5,
             ),
           ),
@@ -415,19 +407,19 @@ class CustomInputField extends StatelessWidget {
             keyboardType: keyboardType,
             style: const TextStyle(
               fontSize: 15,
-              color: _SchoolLoginScreen.textGreyHint,
+              color: _StudentLoginScreen.textGreyHint,
             ),
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(
-                color: _SchoolLoginScreen.textGreyHint,
+                color: _StudentLoginScreen.textGreyHint,
                 fontSize: 15,
               ),
               filled: true,
-              fillColor: _SchoolLoginScreen.inputBgColor,
+              fillColor: _StudentLoginScreen.inputBgColor,
               prefixIcon: Icon(
                 icon,
-                color: _SchoolLoginScreen.textGreyHint,
+                color: _StudentLoginScreen.textGreyHint,
                 size: 22,
               ),
               suffixIcon: suffixIcon,
@@ -438,7 +430,7 @@ class CustomInputField extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: const BorderSide(
-                  color: _SchoolLoginScreen.primaryBlue,
+                  color: _StudentLoginScreen.primaryBlue,
                   width: 1.5,
                 ),
               ),

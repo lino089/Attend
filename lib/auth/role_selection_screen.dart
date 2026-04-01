@@ -1,4 +1,6 @@
-import 'package:attend/auth/School_registration_screen.dart';
+import 'package:attend/auth/school_registration_screen.dart';
+import 'package:attend/auth/student_login_screen.dart';
+import 'package:attend/auth/teacher_login_screen.dart';
 import 'package:flutter/material.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
@@ -94,14 +96,26 @@ class RoleSelectionScreen extends StatelessWidget {
                       title: 'Teacher',
                       subtitle: 'Take attendance and manage exams',
                       icon: Icons.badge_outlined,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TeacherLoginScreen(),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 16),
                     RoleCard(
                       title: 'Student',
                       subtitle: 'View schedules and take exams',
                       icon: Icons.assignment_outlined,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=> StudentLoginScreen()),
+                        );
+                      },
                     ),
                   ],
                 ),

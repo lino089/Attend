@@ -1,3 +1,4 @@
+import 'package:attend/auth/school_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -312,7 +313,14 @@ class _SchoolRegistrationPageState extends State<SchoolRegistrationPage> {
                         style: TextStyle(color: textGreyLabel, fontSize: 14),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SchoolLoginScreen(),
+                            ),
+                          );
+                        },
                         child: const Text(
                           'Log In',
                           style: TextStyle(
