@@ -29,6 +29,7 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
   @override
   void initState() {
     super.initState();
+    _fetchDashboardData();
   }
 
   Future<void> _fetchDashboardData() async {
@@ -52,8 +53,7 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
       }
     } catch (e) {
       debugPrint("Gagal mengambil data database : $e");
-      ;
-      setState(() => _isLoading);
+      setState(() => _isLoading = false);
     }
   }
 
@@ -98,7 +98,7 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
       child: Stack(
         children: [
           Container(
-            height: 260,
+            height: 230,
             width: double.infinity,
             decoration: const BoxDecoration(
               color: primaryBlue,
@@ -120,29 +120,189 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Admin Dashboard',
-                        style: TextStyle(color: Colors.white70, fontSize: 13),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        _schoolName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Admin Dashboard',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 13,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              _schoolName,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              _getTodayDate(),
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
-                      Text(
-                        _getTodayDate(),
-                        style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: 13,
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.15),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.notifications_none_rounded,
+                          color: Colors.white,
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 34),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _StatCard(
+                          title: 'Teacher',
+                          count: _isLoading ? '-' : _teacherCount.toString(),
+                          icon: Icons.people_outline,
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: _StatCard(
+                          title: 'STUNDENT',
+                          count: _isLoading ? '-' : _studentCount.toString(),
+                          icon: Icons.school_outlined,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  const Text(
+                    'Activity',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: textDark,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  _ActivityButton(
+                    title: 'Manage Attendance',
+                    subtitle: 'Daily Summary & Reports',
+                    icon: Icons.assignment_turned_in_outlined,
+                    onTap: () {},
+                  ),
+                  _ActivityButton(
+                    title: 'Managae Students',
+                    subtitle: 'Master Summary & Reports',
+                    icon: Icons.school_outlined,
+                    onTap: () {},
+                  ),
+                  _ActivityButton(
+                    title: 'Manage Teacher',
+                    subtitle: 'Access Rights & Data',
+                    icon: Icons.person_outline,
+                    onTap: () {},
+                  ),
+                  _ActivityButton(
+                    title: 'Manage Schedule',
+                    subtitle: 'Set Class Hours',
+                    icon: Icons.calendar_today_outlined,
+                    onTap: () {},
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: lightBlueBg,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Today's Attendance",
+                          style: TextStyle(
+                            color: primaryBlue,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          _isLoading ? '--%' : '$_attendancePercent%',
+                          style: const TextStyle(
+                            color: textGrey,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2.0,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _AttendanceStatItem(
+                                title: 'ATTENDANT',
+                                count: _isLoading
+                                    ? '-'
+                                    : _attendanceCount.toString(),
+                                dotColor: Colors.green,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: _AttendanceStatItem(
+                                title: 'PERMIT',
+                                count: _isLoading
+                                    ? '-'
+                                    : _permitCount.toString(),
+                                dotColor: Colors.blueAccent,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _AttendanceStatItem(
+                                title: 'SICK',
+                                count: _isLoading
+                                    ? '-'
+                                    : _sickCount.toString(),
+                                dotColor: Colors.orange,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: _AttendanceStatItem(
+                                title: 'Alpa',
+                                count: _isLoading
+                                    ? '-'
+                                    : _alpaCount.toString(),
+                                dotColor: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -299,10 +459,10 @@ class _AttendanceStatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16)
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -312,7 +472,10 @@ class _AttendanceStatItem extends StatelessWidget {
               Container(
                 width: 6,
                 height: 6,
-                decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: dotColor,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 6),
               Text(
@@ -321,9 +484,9 @@ class _AttendanceStatItem extends StatelessWidget {
                   color: _AdminDashboardScreen.textDark,
                   fontSize: 10,
                   fontWeight: FontWeight.w800,
-                  letterSpacing: 0.5
+                  letterSpacing: 0.5,
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -332,9 +495,9 @@ class _AttendanceStatItem extends StatelessWidget {
             style: const TextStyle(
               color: _AdminDashboardScreen.textDark,
               fontSize: 18,
-              fontWeight: FontWeight.bold 
+              fontWeight: FontWeight.bold,
             ),
-          )
+          ),
         ],
       ),
     );

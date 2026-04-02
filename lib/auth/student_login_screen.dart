@@ -1,3 +1,4 @@
+import 'package:attend/student/student_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -241,9 +242,16 @@ class _StudentLoginScreen extends State<StudentLoginScreen> {
                             width: double.infinity,
                             height: 56,
                             child: ElevatedButton(
-                              onPressed: _isLoading || _isGoogleLoading
+                              onPressed: /* _isLoading || _isGoogleLoading
                                   ? null
-                                  : _login,
+                                  : _login */ () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => StudentMainScreen(),
+                                  ),
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryBlue,
                                 foregroundColor: Colors.white,
