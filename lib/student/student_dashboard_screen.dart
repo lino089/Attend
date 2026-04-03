@@ -19,7 +19,8 @@ class _StudentDashboardScreen extends State<StudentDashboardScreen> {
 
   Map<String, dynamic>? _currentClass;
 
-  List<Map<String, dynamic>> _remainingSchedule = [];
+  List<Map<String, dynamic>> _displaySchedule = [];
+  String _scheduleSectionTitle = "";
 
   static const Color primaryBlue = Color(0xff335cfa);
   static const Color textDark = Color(0xff1e293b);
@@ -67,6 +68,29 @@ class _StudentDashboardScreen extends State<StudentDashboardScreen> {
         },
       ];
 
+      final List<Map<String, dynamic>> tomorrowSchedule = [
+        {
+          "subject": "Mathematics",
+          "startHour": 7,
+          "startMinute": 30,
+          "endHour": 9,
+          "endMinute": 0,
+          "location": "Room 201",
+          "teacher": "Mrs. Anita",
+          "isRest": false,
+        },
+        {
+          "subject": "English",
+          "startHour": 9,
+          "startMinute": 0,
+          "endHour": 10,
+          "endMinute": 30,
+          "location": "Language Lab",
+          "teacher": "Mr. John",
+          "isRest": false,
+        },
+      ];
+
       Map<String, dynamic>? activeClass;
       List<Map<String, dynamic>> upcomingClasses = [];
 
@@ -81,16 +105,29 @@ class _StudentDashboardScreen extends State<StudentDashboardScreen> {
           upcomingClasses.add(cls);
         }
       }
+
+      String tempTitle;
+      List<Map<String, dynamic>> tempDisplaySchedule;
+
+      if (upcomingClasses.isNotEmpty) {
+        tempTitle = 'Remaining Schedule';
+        tempDisplaySchedule = tomorrowSchedule;
+      } else {
+        tempTitle = 'Tomorrow Schedule';
+        tempDisplaySchedule = tomorrowSchedule;
+      }
+
       if (mounted) {
         setState(() {
           _studentName = 'Ahmad Yani';
           _studentGrade = 'XII RPL 2';
           _academicStatus = {
-            "title": 'Minggu Jurusa',
+            "title": 'Minggu Jurusan',
             'desc': 'Aktifitas belajar jurusan',
           };
           _currentClass = activeClass;
-          _remainingSchedule = upcomingClasses;
+          _scheduleSectionTitle = tempTitle;
+          _displaySchedule = tempDisplaySchedule;
           isLoading = false;
         });
       }
@@ -141,7 +178,252 @@ class _StudentDashboardScreen extends State<StudentDashboardScreen> {
         body: Center(child: CircularProgressIndicator(color: primaryBlue)),
       );
     }
-    return SingleChildScrollView();
+    return SingleChildScrollView(
+      child: Stack(
+        children: [
+          Container(
+            height: 250,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: primaryBlue,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(32),
+                bottomRight: Radius.circular(32),
+              ),
+            ),
+          ),
+
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsetsGeometry.symmetric(horizontal: 24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 50),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            const CircleAvatar(
+                              radius: 28,
+                              backgroundColor: Colors.white24,
+                              child: Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 32,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _studentName,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    "Grade: $_studentGrade",
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    _getTodayDate(),
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 10,
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.15),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.notifications_none_rounded, color: Colors.white,),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _TopMenuCard(
+                          title: 'EXAM',
+                          subtitle: 'View',
+                          icon: Icons.assignment_outlined,
+                          onTap: () {},
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: _TopMenuCard(
+                          title: 'EXAM HISTORY',
+                          subtitle: 'Check pevioud scores',
+                          icon: Icons.history_rounded,
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+
+                  if (_currentClass != null) ...[
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.03),
+                            blurRadius: 20,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Sekarang berlangsung',
+                            style: TextStyle(
+                              color: primaryBlue,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            _currentClass!['subject'],
+                            style: const TextStyle(
+                              color: textDark,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          OngoingDetailRow(
+                            icon: Icons.access_time,
+                            text:
+                                '${_formatTime(_currentClass!['startHour'], _currentClass!['startMinute'])} - ${_formatTime(_currentClass!['endHour'], _currentClass!['endMinute'])} WIB',
+                          ),
+                          const SizedBox(height: 12),
+                          OngoingDetailRow(
+                            icon: Icons.location_on_outlined,
+                            text: _currentClass!['location'],
+                          ),
+                          const SizedBox(height: 12),
+                          OngoingDetailRow(
+                            icon: Icons.person_outline,
+                            text: "Guru: ${_currentClass!['teacher']}",
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                  if (_academicStatus != null) ...[
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: const Color(0xfff0f4ff),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'ACADEMIC STATUS',
+                            style: TextStyle(
+                              color: primaryBlue,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            _academicStatus!['title']!,
+                            style: const TextStyle(
+                              color: primaryBlue,
+                              fontSize: 13,
+                            ),
+                          ),
+
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.info_outline,
+                                color: primaryBlue,
+                                size: 18,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  _academicStatus!['desc']!,
+                                  style: const TextStyle(
+                                    color: primaryBlue,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                  ],
+
+                  if(_displaySchedule.isNotEmpty) ...[
+                    Text(
+                      _scheduleSectionTitle,
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: textDark),
+                    ),
+                    const SizedBox(height: 16),
+                    ..._displaySchedule.map((cls) => _ScheduleItem(
+                      isRest: cls['isRest'],
+                      subject: cls['subject'],
+                      grade: _studentGrade,
+                      time: "${_formatTime(cls['startHour'], cls['startMinute'])} - ${_formatTime(cls['endHour'], cls['endMinute'])}",
+                    ))
+                  ],
+
+                  const SizedBox(height: 40),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _formatTime(int hour, int minute) {
+    return "${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}";
   }
 }
 
@@ -306,12 +588,16 @@ class _ScheduleItem extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   isRest ? time : "$grade • $time",
-                  style: const TextStyle(color: _StudentDashboardScreen.textGrey, fontSize: 12),
-                )
+                  style: const TextStyle(
+                    color: _StudentDashboardScreen.textGrey,
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ),
-          if(!isRest) const Icon(Icons.chevron_right_sharp, color: Colors.grey,)
+          if (!isRest)
+            const Icon(Icons.chevron_right_sharp, color: Colors.grey),
         ],
       ),
     );

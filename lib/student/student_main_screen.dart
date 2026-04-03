@@ -1,3 +1,4 @@
+import 'package:attend/student/student_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class StudentMainScreen extends StatefulWidget {
@@ -10,7 +11,11 @@ class StudentMainScreen extends StatefulWidget {
 class _StudentMainScreen extends State<StudentMainScreen> {
   int selectedIndex = 0;
 
-  final List<Widget> _pages = [const Center(), const Center(), const Center()];
+  final List<Widget> _pages = [
+    const StudentDashboardScreen(),
+    const Center(),
+    const Center(),
+  ];
 
   static const Color primariBlue = Color(0xff335cfa);
   static const Color textGreyHint = Color(0xff94a3b8);
