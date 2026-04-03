@@ -1,4 +1,6 @@
 import 'package:attend/student/student_dashboard_screen.dart';
+import 'package:attend/student/student_schedule_screen.dart';
+import 'package:attend/student/student_settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class StudentMainScreen extends StatefulWidget {
@@ -13,8 +15,8 @@ class _StudentMainScreen extends State<StudentMainScreen> {
 
   final List<Widget> _pages = [
     const StudentDashboardScreen(),
-    const Center(),
-    const Center(),
+    const StudentScheduleScreen(),
+    const StudentSettingsScreen(),
   ];
 
   static const Color primariBlue = Color(0xff335cfa);

@@ -1,28 +1,29 @@
-import 'package:attend/admin/admin_dashboard_screen.dart';
-import 'package:attend/admin/admin_setting_screen.dart';
+import 'package:attend/teacher/teacher_dashboard_screen.dart';
+import 'package:attend/teacher/teacher_schedule_screen.dart';
+import 'package:attend/teacher/teacher_setting_screen.dart';
 import 'package:flutter/material.dart';
 
-class AdminMainScreen extends StatefulWidget {
-  const AdminMainScreen({super.key});
+class TeacherMainScreen extends StatefulWidget {
+  const TeacherMainScreen({super.key});
 
   @override
-  State<AdminMainScreen> createState() => _AdminMainScreen();
+  State<TeacherMainScreen> createState() => _TeacherMainScreen();
 }
 
-class _AdminMainScreen extends State<AdminMainScreen> {
-  int _selectedIndex = 0;
+class _TeacherMainScreen extends State<TeacherMainScreen> {
+  int selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    const AdminDashboardScreen(),
-    const AdminSettingScreen(),
+  final List<Widget> pages = [
+    const TeacherDashboardScreen(),
+    const TeacherScheduleScreen(),
+    const TeacherSettingScreen(),
   ];
-
-  static const Color primatyBlue = Color(0xff335cfa);
+  static const Color primariBlue = Color(0xff335cfa);
   static const Color textGreyHint = Color(0xff94a3b8);
 
-  void _onItemTapped(int index) {
+  void onTappedItem(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
@@ -30,13 +31,13 @@ class _AdminMainScreen extends State<AdminMainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _pages[_selectedIndex],
+      body: pages[selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black,
               blurRadius: 20,
               offset: const Offset(0, -5),
             ),
@@ -44,24 +45,27 @@ class _AdminMainScreen extends State<AdminMainScreen> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24.0,
-              vertical: 12.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildNavItem(
                   icon: Icons.grid_view_rounded,
                   label: 'DASHBOARD',
-                  isSelected: _selectedIndex == 0,
-                  onTap: () => _onItemTapped(0),
+                  isSelect: selectedIndex == 0,
+                  onTap: () => onTappedItem(0),
+                ),
+                _buildNavItem(
+                  icon: Icons.calendar_month,
+                  label: 'SCHEDULE',
+                  isSelect: selectedIndex == 1,
+                  onTap: () => onTappedItem(1),
                 ),
                 _buildNavItem(
                   icon: Icons.settings_outlined,
                   label: 'SETTINGS',
-                  isSelected: _selectedIndex == 1,
-                  onTap: () => _onItemTapped(1),
+                  isSelect: selectedIndex == 2,
+                  onTap: () => onTappedItem(2),
                 ),
               ],
             ),
@@ -74,18 +78,18 @@ class _AdminMainScreen extends State<AdminMainScreen> {
   Widget _buildNavItem({
     required IconData icon,
     required String label,
-    required bool isSelected,
+    required bool isSelect,
     required VoidCallback onTap,
   }) {
-    final color = isSelected ? primatyBlue : textGreyHint;
+    final color = isSelect ? primariBlue : textGreyHint;
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(microseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? primatyBlue.withOpacity(0.1) : Colors.transparent,
+          color: isSelect ? primariBlue.withOpacity(0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
