@@ -1,3 +1,5 @@
+import 'package:attend/teacher/teacher_dashboard_screen.dart';
+import 'package:attend/teacher/teacher_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -241,9 +243,19 @@ class _TeacherLoginScreen extends State<TeacherLoginScreen> {
                             width: double.infinity,
                             height: 56,
                             child: ElevatedButton(
-                              onPressed: _isLoading || _isGoogleLoading
-                                  ? null
-                                  : _login,
+                              onPressed:
+                                  // _isLoading || _isGoogleLoading
+                                  //     ? null
+                                  //     : _login
+                                  () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            TeacherMainScreen(),
+                                      ),
+                                    );
+                                  },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryBlue,
                                 foregroundColor: Colors.white,

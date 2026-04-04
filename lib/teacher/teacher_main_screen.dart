@@ -37,7 +37,7 @@ class _TeacherMainScreen extends State<TeacherMainScreen> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black,
+              color: Colors.black.withOpacity(0.05),
               blurRadius: 20,
               offset: const Offset(0, -5),
             ),
