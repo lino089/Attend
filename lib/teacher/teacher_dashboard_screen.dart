@@ -315,10 +315,140 @@ class _TeacherDashboardScreen extends State<TeacherDashboardScreen> {
                               ],
                             ),
                             const SizedBox(height: 20),
+
+                            Text(
+                              "${_activeClass!['startHour']} • ${_activeClass!['subject']}",
+                              style: const TextStyle(
+                                color: textDark,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "${_activeClass!['room']} • ${_activeClass!['building']}",
+                              style: const TextStyle(
+                                color: textGrey,
+                                fontSize: 14,
+                              ),
+                            ),
+
+                            const SizedBox(height: 24),
+
+                            SizedBox(
+                              width: double.infinity,
+                              height: 52,
+                              child: ElevatedButton.icon(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: primaryBlue,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  elevation: 0,
+                                ),
+                                icon: const Icon(Icons.how_to_reg, size: 20),
+                                label: const Text(
+                                  'Start Attendace',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
+                      const SizedBox(height: 32),
                     ],
+                    const SizedBox(height: 80),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        
+                        const Text(
+                          'Teacher Menu',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: textDark,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: const Text(
+                            'VIEW ALL',
+                            style: TextStyle(
+                              color: primaryBlue,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    _MenuCard(
+                      title: 'Create Test',
+                      subTitle: 'Design new assessment',
+                      icon: Icons.quiz_outlined,
+                      iconBgColor: const Color(0xfff0f4ff),
+                      iconColor: primaryBlue,
+                      isFullWidth: true,
+                      onTap: () {},
+                    ),
+
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _MenuCard(
+                            title: 'Attendance\nHistory',
+                            subTitle: '',
+                            icon: Icons.history_rounded,
+                            iconBgColor: const Color(0xfff3e8ff),
+                            iconColor: const Color(0xff9333ea),
+                            isFullWidth: false,
+                            onTap: () {},
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _MenuCard(
+                            title: 'Exam\nHistory',
+                            subTitle: '',
+                            icon: Icons.assignment_turned_in_outlined,
+                            iconBgColor: const Color(0xfffff7ed),
+                            iconColor: const Color(0xffea580c),
+                            isFullWidth: false,
+                            onTap: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 32),
+                    if (_displaySchedule.isNotEmpty) ...[
+                      Text(
+                        _scheduleSectionTitle,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: textDark,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      ..._displaySchedule.map(
+                        (cls) => _NextScheduleItem(
+                          className: cls['className'],
+                          subject: cls['subject'],
+                          time: "${_formatTime(cls['startHour'], cls['startMinute'])} - ${_formatTime(cls['endHour'], cls['endMinute'])}",
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 40)
                   ],
                 ),
               ),
