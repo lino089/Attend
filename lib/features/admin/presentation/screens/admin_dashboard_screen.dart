@@ -1,3 +1,4 @@
+import 'package:attend/features/admin/presentation/screens/manageStudentAttendance/manage_student_attandance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -199,7 +200,20 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
                   const SizedBox(height: 16),
 
                   _ActivityButton(
-                    title: 'Manage Attendance',
+                    title: 'Manage Student Attendance',
+                    subtitle: 'Daily Summary & Reports',
+                    icon: Icons.assignment_turned_in_outlined,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ManageStudentAttendancePage(),
+                        ),
+                      );
+                    },
+                  ),
+                  _ActivityButton(
+                    title: 'Manage Teacher Attendance',
                     subtitle: 'Daily Summary & Reports',
                     icon: Icons.assignment_turned_in_outlined,
                     onTap: () {},
@@ -283,9 +297,7 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
                             Expanded(
                               child: _AttendanceStatItem(
                                 title: 'SICK',
-                                count: _isLoading
-                                    ? '-'
-                                    : _sickCount.toString(),
+                                count: _isLoading ? '-' : _sickCount.toString(),
                                 dotColor: Colors.orange,
                               ),
                             ),
@@ -293,9 +305,7 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
                             Expanded(
                               child: _AttendanceStatItem(
                                 title: 'Alpa',
-                                count: _isLoading
-                                    ? '-'
-                                    : _alpaCount.toString(),
+                                count: _isLoading ? '-' : _alpaCount.toString(),
                                 dotColor: Colors.red,
                               ),
                             ),

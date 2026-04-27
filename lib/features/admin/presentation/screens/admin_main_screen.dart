@@ -1,5 +1,5 @@
-import 'package:attend/admin/admin_dashboard_screen.dart';
-import 'package:attend/admin/admin_setting_screen.dart';
+import 'package:attend/features/admin/presentation/screens/admin_dashboard_screen.dart';
+import 'package:attend/features/admin/presentation/screens/admin_setting_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminMainScreen extends StatefulWidget {

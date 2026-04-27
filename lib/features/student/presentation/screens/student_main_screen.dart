@@ -1,6 +1,6 @@
-import 'package:attend/student/student_dashboard_screen.dart';
-import 'package:attend/student/student_schedule_screen.dart';
-import 'package:attend/student/student_settings_screen.dart';
+import 'package:attend/features/student/presentation/screens/student_dashboard_screen.dart';
+import 'package:attend/features/student/presentation/screens/student_schedule_screen.dart';
+import 'package:attend/features/student/presentation/screens/student_settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class StudentMainScreen extends StatefulWidget {

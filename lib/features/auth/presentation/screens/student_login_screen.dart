@@ -1,15 +1,16 @@
-import 'package:attend/admin/admin_main_screen.dart';
+import 'package:attend/shared/widgets/custom_input_field.dart';
+import 'package:attend/features/student/presentation/screens/student_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SchoolLoginScreen extends StatefulWidget {
-  const SchoolLoginScreen({super.key});
+class StudentLoginScreen extends StatefulWidget {
+  const StudentLoginScreen({super.key});
 
   @override
-  State<SchoolLoginScreen> createState() => _SchoolLoginScreen();
+  State<StudentLoginScreen> createState() => _StudentLoginScreen();
 }
 
-class _SchoolLoginScreen extends State<SchoolLoginScreen> {
+class _StudentLoginScreen extends State<StudentLoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _npsnController = TextEditingController();
@@ -94,7 +95,7 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
         child: Stack(
           children: [
             Container(
-              height: 300,
+              height: 320,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: primaryBlue,
@@ -107,7 +108,23 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
             SafeArea(
               child: Column(
                 children: [
-                  const SizedBox(height: 50),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 8.0,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                  ),
                   Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -154,7 +171,7 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'School Admin Portal',
+                            'Student Login',
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -226,13 +243,13 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
                             width: double.infinity,
                             height: 56,
                             child: ElevatedButton(
-                              onPressed: /*_isLoading || _isGoogleLoading
+                              onPressed: /* _isLoading || _isGoogleLoading
                                   ? null
-                                  : _login*/ () {
+                                  : _login */ () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AdminMainScreen(),
+                                    builder: (context) => StudentMainScreen(),
                                   ),
                                 );
                               },
@@ -343,30 +360,6 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 32),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Don't have an account ",
-                        style: TextStyle(color: textGreyLabel, fontSize: 14),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          'Sign up',
-                          style: TextStyle(
-                            color: primaryBlue,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 48),
                 ],
               ),
             ),
@@ -377,94 +370,3 @@ class _SchoolLoginScreen extends State<SchoolLoginScreen> {
   }
 }
 
-class CustomInputField extends StatelessWidget {
-  final String label;
-  final String hintText;
-  final IconData icon;
-  final bool obsecureText;
-  final Widget? suffixIcon;
-  final TextEditingController? controller;
-  final String? Function(String?)? validator;
-  final TextInputType? keyboardType;
-
-  const CustomInputField({
-    super.key,
-    required this.label,
-    required this.icon,
-    required this.hintText,
-    this.obsecureText = false,
-    this.suffixIcon,
-    this.controller,
-    this.validator,
-    this.keyboardType,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: _SchoolLoginScreen.textGreyLabel,
-              letterSpacing: 0.5,
-            ),
-          ),
-          const SizedBox(height: 8),
-          TextFormField(
-            controller: controller,
-            obscureText: obsecureText,
-            validator: validator,
-            keyboardType: keyboardType,
-            style: const TextStyle(
-              fontSize: 15,
-              color: _SchoolLoginScreen.textGreyHint,
-            ),
-            decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: const TextStyle(
-                color: _SchoolLoginScreen.textGreyHint,
-                fontSize: 15,
-              ),
-              filled: true,
-              fillColor: _SchoolLoginScreen.inputBgColor,
-              prefixIcon: Icon(
-                icon,
-                color: _SchoolLoginScreen.textGreyHint,
-                size: 22,
-              ),
-              suffixIcon: suffixIcon,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: _SchoolLoginScreen.primaryBlue,
-                  width: 1.5,
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: Colors.redAccent,
-                  width: 1.5,
-                ),
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 18,
-                horizontal: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

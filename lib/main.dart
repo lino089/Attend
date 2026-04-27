@@ -1,10 +1,11 @@
 
-import 'package:attend/auth/role_selection_screen.dart';
+import 'package:attend/features/auth/presentation/screens/role_selection_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 void main() {
-  runApp(const PresensiApp());
+  runApp(const ProviderScope(child: PresensiApp()));
 }
 
 class PresensiApp extends StatelessWidget {

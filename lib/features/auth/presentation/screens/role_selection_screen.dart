@@ -1,6 +1,6 @@
-import 'package:attend/auth/school_registration_screen.dart';
-import 'package:attend/auth/student_login_screen.dart';
-import 'package:attend/auth/teacher_login_screen.dart';
+import 'package:attend/features/auth/presentation/screens/school_registration_screen.dart';
+import 'package:attend/features/auth/presentation/screens/student_login_screen.dart';
+import 'package:attend/features/auth/presentation/screens/teacher_login_screen.dart';
 import 'package:flutter/material.dart';
 
 class RoleSelectionScreen extends StatelessWidget {

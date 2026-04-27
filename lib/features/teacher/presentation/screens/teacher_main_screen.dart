@@ -1,6 +1,6 @@
-import 'package:attend/teacher/teacher_dashboard_screen.dart';
-import 'package:attend/teacher/teacher_schedule_screen.dart';
-import 'package:attend/teacher/teacher_setting_screen.dart';
+import 'package:attend/features/teacher/presentation/screens/teacher_dashboard_screen.dart';
+import 'package:attend/features/teacher/presentation/screens/teacher_schedule_screen.dart';
+import 'package:attend/features/teacher/presentation/screens/teacher_setting_screen.dart';
 import 'package:flutter/material.dart';
 
 class TeacherMainScreen extends StatefulWidget {

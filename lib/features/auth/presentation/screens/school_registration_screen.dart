@@ -1,4 +1,5 @@
-import 'package:attend/auth/school_login_screen.dart';
+import 'package:attend/shared/widgets/custom_input_field.dart';
+import 'package:attend/features/auth/presentation/screens/school_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -197,7 +198,6 @@ class _SchoolRegistrationPageState extends State<SchoolRegistrationPage> {
                             hintText: 'Full school street address',
                             icon: Icons.location_on_outlined,
                             controller: _addressController,
-                            maxLines: 2,
                             validator: (value) =>
                                 value!.isEmpty ? 'Address is required' : null,
                           ),
@@ -228,7 +228,7 @@ class _SchoolRegistrationPageState extends State<SchoolRegistrationPage> {
                             label: 'PASSWORD',
                             hintText: '••••••••',
                             icon: Icons.lock_outline,
-                            obscureText: _obscurePassword,
+                            obsecureText: _obscurePassword,
                             controller: _passwordController,
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -249,7 +249,7 @@ class _SchoolRegistrationPageState extends State<SchoolRegistrationPage> {
                             label: 'CONFIRM PASSWORD',
                             hintText: '••••••••',
                             icon: Icons.lock_outline,
-                            obscureText: _obscureConfirmPassword,
+                            obsecureText: _obscureConfirmPassword,
                             controller: _confirmPasswordController,
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -343,97 +343,3 @@ class _SchoolRegistrationPageState extends State<SchoolRegistrationPage> {
   }
 }
 
-class CustomInputField extends StatelessWidget {
-  final String label;
-  final String hintText;
-  final IconData icon;
-  final bool obscureText;
-  final Widget? suffixIcon;
-  final TextEditingController? controller;
-  final String? Function(String?)? validator;
-  final TextInputType? keyboardType;
-  final int maxLines;
-
-  const CustomInputField({
-    Key? key,
-    required this.label,
-    required this.hintText,
-    required this.icon,
-    this.obscureText = false,
-    this.suffixIcon,
-    this.controller,
-    this.validator,
-    this.keyboardType,
-    this.maxLines = 1,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: _SchoolRegistrationPageState.textGreyLabel,
-              letterSpacing: 0.5,
-            ),
-          ),
-          const SizedBox(height: 8),
-          TextFormField(
-            controller: controller,
-            obscureText: obscureText,
-            validator: validator,
-            keyboardType: keyboardType,
-            maxLines: maxLines,
-            style: const TextStyle(
-              fontSize: 15,
-              color: _SchoolRegistrationPageState.textDark,
-            ),
-            decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: const TextStyle(
-                color: _SchoolRegistrationPageState.textGreyHint,
-                fontSize: 15,
-              ),
-              filled: true,
-              fillColor: _SchoolRegistrationPageState.inputBgColor,
-              prefixIcon: Icon(
-                icon,
-                color: _SchoolRegistrationPageState.primaryBlue,
-                size: 22,
-              ),
-              suffixIcon: suffixIcon,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: _SchoolRegistrationPageState.primaryBlue,
-                  width: 1.5,
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: Colors.redAccent,
-                  width: 1.5,
-                ),
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 18,
-                horizontal: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

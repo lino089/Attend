@@ -1,15 +1,16 @@
-import 'package:attend/student/student_main_screen.dart';
+import 'package:attend/shared/widgets/custom_input_field.dart';
+import 'package:attend/features/admin/presentation/screens/admin_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class StudentLoginScreen extends StatefulWidget {
-  const StudentLoginScreen({super.key});
+class SchoolLoginScreen extends StatefulWidget {
+  const SchoolLoginScreen({super.key});
 
   @override
-  State<StudentLoginScreen> createState() => _StudentLoginScreen();
+  State<SchoolLoginScreen> createState() => _SchoolLoginScreen();
 }
 
-class _StudentLoginScreen extends State<StudentLoginScreen> {
+class _SchoolLoginScreen extends State<SchoolLoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _npsnController = TextEditingController();
@@ -94,7 +95,7 @@ class _StudentLoginScreen extends State<StudentLoginScreen> {
         child: Stack(
           children: [
             Container(
-              height: 320,
+              height: 300,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: primaryBlue,
@@ -107,23 +108,7 @@ class _StudentLoginScreen extends State<StudentLoginScreen> {
             SafeArea(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 8.0,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ),
-                  ),
+                  const SizedBox(height: 50),
                   Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -170,7 +155,7 @@ class _StudentLoginScreen extends State<StudentLoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Student Login',
+                            'School Admin Portal',
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -242,13 +227,13 @@ class _StudentLoginScreen extends State<StudentLoginScreen> {
                             width: double.infinity,
                             height: 56,
                             child: ElevatedButton(
-                              onPressed: /* _isLoading || _isGoogleLoading
+                              onPressed: /*_isLoading || _isGoogleLoading
                                   ? null
-                                  : _login */ () {
+                                  : _login*/ () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => StudentMainScreen(),
+                                    builder: (context) => AdminMainScreen(),
                                   ),
                                 );
                               },
@@ -359,6 +344,30 @@ class _StudentLoginScreen extends State<StudentLoginScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 32),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Don't have an account ",
+                        style: TextStyle(color: textGreyLabel, fontSize: 14),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                            color: primaryBlue,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 48),
                 ],
               ),
             ),
@@ -369,94 +378,3 @@ class _StudentLoginScreen extends State<StudentLoginScreen> {
   }
 }
 
-class CustomInputField extends StatelessWidget {
-  final String label;
-  final String hintText;
-  final IconData icon;
-  final bool obsecureText;
-  final Widget? suffixIcon;
-  final TextEditingController? controller;
-  final String? Function(String?)? validator;
-  final TextInputType? keyboardType;
-
-  const CustomInputField({
-    super.key,
-    required this.label,
-    required this.icon,
-    required this.hintText,
-    this.obsecureText = false,
-    this.suffixIcon,
-    this.controller,
-    this.validator,
-    this.keyboardType,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: _StudentLoginScreen.textGreyLabel,
-              letterSpacing: 0.5,
-            ),
-          ),
-          const SizedBox(height: 8),
-          TextFormField(
-            controller: controller,
-            obscureText: obsecureText,
-            validator: validator,
-            keyboardType: keyboardType,
-            style: const TextStyle(
-              fontSize: 15,
-              color: _StudentLoginScreen.textGreyHint,
-            ),
-            decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: const TextStyle(
-                color: _StudentLoginScreen.textGreyHint,
-                fontSize: 15,
-              ),
-              filled: true,
-              fillColor: _StudentLoginScreen.inputBgColor,
-              prefixIcon: Icon(
-                icon,
-                color: _StudentLoginScreen.textGreyHint,
-                size: 22,
-              ),
-              suffixIcon: suffixIcon,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: _StudentLoginScreen.primaryBlue,
-                  width: 1.5,
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: Colors.redAccent,
-                  width: 1.5,
-                ),
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 18,
-                horizontal: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
