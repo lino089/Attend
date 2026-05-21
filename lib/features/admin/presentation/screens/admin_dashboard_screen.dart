@@ -1,4 +1,8 @@
+import 'package:attend/features/admin/presentation/screens/manageSchedule/manage_schedule_selection_screen.dart';
 import 'package:attend/features/admin/presentation/screens/manageStudentAttendance/manage_student_attandance.dart';
+import 'package:attend/features/admin/presentation/screens/manageStudents/manage_students_screen.dart';
+import 'package:attend/features/admin/presentation/screens/manageTeacherAttendance/manage_teacher_attendance.dart';
+import 'package:attend/features/admin/presentation/screens/manageTeachers/manage_teachers_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -216,25 +220,53 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
                     title: 'Manage Teacher Attendance',
                     subtitle: 'Daily Summary & Reports',
                     icon: Icons.assignment_turned_in_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ManageTeacherAttendanceScreen(),
+                        ),
+                      );
+                    },
                   ),
                   _ActivityButton(
-                    title: 'Managae Students',
+                    title: 'Manage Students',
                     subtitle: 'Master Summary & Reports',
                     icon: Icons.school_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ManageStudentsScreen(),
+                        ),
+                      );
+                    },
                   ),
                   _ActivityButton(
                     title: 'Manage Teacher',
                     subtitle: 'Access Rights & Data',
                     icon: Icons.person_outline,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ManageTeachersScreen(),
+                        ),
+                      );
+                    },
                   ),
                   _ActivityButton(
                     title: 'Manage Schedule',
                     subtitle: 'Set Class Hours',
                     icon: Icons.calendar_today_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ManageScheduleSelectionScreen(),
+                        ),
+                      );
+                    },
                   ),
 
                   const SizedBox(height: 24),
@@ -243,13 +275,18 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: lightBlueBg,
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFCDD4FF), Color(0xFFE2E6FF)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          "Today's Attendance",
+                          "Kehadiran Hari Ini",
                           style: TextStyle(
                             color: primaryBlue,
                             fontSize: 16,
@@ -257,56 +294,63 @@ class _AdminDashboardScreen extends State<AdminDashboardScreen> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Text(
-                          _isLoading ? '--%' : '$_attendancePercent%',
-                          style: const TextStyle(
-                            color: textGrey,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2.0,
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Expanded(
-                              child: _AttendanceStatItem(
-                                title: 'ATTENDANT',
-                                count: _isLoading
-                                    ? '-'
-                                    : _attendanceCount.toString(),
-                                dotColor: Colors.green,
+                            Text(
+                              _isLoading ? '--%' : '$_attendanceCount%',
+                              style: const TextStyle(
+                                color: primaryBlue,
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: _AttendanceStatItem(
-                                title: 'PERMIT',
-                                count: _isLoading
-                                    ? '-'
-                                    : _permitCount.toString(),
-                                dotColor: Colors.blueAccent,
+                            const SizedBox(width: 8),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 8.0),
+                              child: Text(
+                                'TERDATA',
+                                style: TextStyle(
+                                  color: primaryBlue,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 16),
                         Row(
                           children: [
-                            Expanded(
-                              child: _AttendanceStatItem(
-                                title: 'SICK',
-                                count: _isLoading ? '-' : _sickCount.toString(),
-                                dotColor: Colors.orange,
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                _isLoading ? '- HADIR' : '$_attendancePercent HADIR',
+                                style: const TextStyle(
+                                  color: primaryBlue,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             const SizedBox(width: 12),
-                            Expanded(
-                              child: _AttendanceStatItem(
-                                title: 'Alpa',
-                                count: _isLoading ? '-' : _alpaCount.toString(),
-                                dotColor: Colors.red,
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFEBC1D0),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                _isLoading ? '- ALPA' : '$_alpaCount ALPA',
+                                style: const TextStyle(
+                                  color: Color(0xFFC0392B),
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
@@ -441,6 +485,15 @@ class _ActivityButton extends StatelessWidget {
                       style: const TextStyle(
                         color: _AdminDashboardScreen.textDark,
                         fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        color: _AdminDashboardScreen.textGrey,
+                        fontSize: 11,
                       ),
                     ),
                   ],

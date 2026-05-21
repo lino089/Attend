@@ -1,6 +1,7 @@
 import 'package:attend/features/teacher/presentation/screens/teacher_dashboard_screen.dart';
-import 'package:attend/features/teacher/presentation/screens/teacher_schedule_screen.dart';
-import 'package:attend/features/teacher/presentation/screens/teacher_setting_screen.dart';
+import 'package:attend/features/teacher/presentation/screens/schedule/teacher_schedule_screen.dart';
+import 'package:attend/features/teacher/presentation/screens/settings/teacher_settings_screen.dart';
+import 'package:attend/features/teacher/presentation/screens/settings/models/teacher_profile_model.dart';
 import 'package:flutter/material.dart';
 
 class TeacherMainScreen extends StatefulWidget {
@@ -13,10 +14,17 @@ class TeacherMainScreen extends StatefulWidget {
 class _TeacherMainScreen extends State<TeacherMainScreen> {
   int selectedIndex = 0;
 
-  final List<Widget> pages = [
+  // TODO: Replace with actual data from database
+  final TeacherProfileModel _teacherProfile = TeacherProfileModel(
+    name: 'Rossy Rahmadani',
+    subject: 'Guru Rekayasa Perangkat Lunak',
+    photoUrl: null, // Will use placeholder
+  );
+
+  List<Widget> get pages => [
     const TeacherDashboardScreen(),
     const TeacherScheduleScreen(),
-    const TeacherSettingScreen(),
+    TeacherSettingsScreen(profile: _teacherProfile),
   ];
   static const Color primariBlue = Color(0xff335cfa);
   static const Color textGreyHint = Color(0xff94a3b8);

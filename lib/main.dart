@@ -1,8 +1,8 @@
 
-import 'package:attend/features/auth/presentation/screens/role_selection_screen.dart';
+import 'package:attend/features/auth/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const ProviderScope(child: PresensiApp()));
@@ -18,9 +18,9 @@ class PresensiApp extends StatelessWidget {
       title: 'Aplikasi Presensi',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFF7F8FA), 
-        fontFamily: 'Roboto', 
+        textTheme: GoogleFonts.plusJakartaSansTextTheme(Theme.of(context).textTheme),
       ),
-      home: const RoleSelectionScreen(),
+      home: const SplashScreen(),
     );
   }
 }

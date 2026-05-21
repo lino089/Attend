@@ -1,6 +1,7 @@
 import 'package:attend/features/student/presentation/screens/student_dashboard_screen.dart';
-import 'package:attend/features/student/presentation/screens/student_schedule_screen.dart';
-import 'package:attend/features/student/presentation/screens/student_settings_screen.dart';
+import 'package:attend/features/student/presentation/screens/schedule/student_schedule_screen.dart';
+import 'package:attend/features/student/presentation/screens/settings/student_settings_screen.dart';
+import 'package:attend/features/student/presentation/screens/settings/models/student_profile_model.dart';
 import 'package:flutter/material.dart';
 
 class StudentMainScreen extends StatefulWidget {
@@ -13,10 +14,17 @@ class StudentMainScreen extends StatefulWidget {
 class _StudentMainScreen extends State<StudentMainScreen> {
   int selectedIndex = 0;
 
-  final List<Widget> _pages = [
+  // TODO: Replace with actual data from database
+  final StudentProfileModel _studentProfile = StudentProfileModel(
+    name: 'Ahmad Baihaqi',
+    className: 'XII RPL 2',
+    photoUrl: null, // Will use placeholder
+  );
+
+  List<Widget> get _pages => [
     const StudentDashboardScreen(),
     const StudentScheduleScreen(),
-    const StudentSettingsScreen(),
+    StudentSettingsScreen(profile: _studentProfile),
   ];
 
   static const Color primariBlue = Color(0xff335cfa);
@@ -38,7 +46,7 @@ class _StudentMainScreen extends State<StudentMainScreen> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 20,
               offset: const Offset(0, -5),
             ),
@@ -90,7 +98,7 @@ class _StudentMainScreen extends State<StudentMainScreen> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? primariBlue.withOpacity(0.1) : Colors.transparent,
+          color: isSelected ? primariBlue.withValues(alpha: 0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
